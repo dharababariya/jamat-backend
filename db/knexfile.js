@@ -1,24 +1,21 @@
 // Update with your config settings.
 // 'use strict';
 
-// module.exports = {
-//   local: {
-//     client: 'postgresql',
-//     connection: {host: '127.0.0.1', user: 'postgres', password: 'sk@96877', database: 'meman_system'},
-//     pool: {
-//       min: 2,
-//       max: 10
-//     },
-//     debug: false
-//   }
-// };
-const knex = require("knex")({
-    client: "pg",
+const  knex = require('knex')({
+    client: 'pg',
+    version: '7.2',
     connection: {
-        host: "127.0.0.1",
-        user: "postgres",
-        password: "sk@96877",
-        database: "meman_system"
-    }
-});
-module.exports = knex;
+      host : 'localhost',
+      user : 'postgres',
+      password : 'postgres',
+      database : 'jamat'
+    },
+    pool: {
+      min: 1,
+      max: 2,
+    },
+    ssl: true,
+    debug: false
+  });
+  //expose knex connection object;
+  module.exports = knex;

@@ -104,68 +104,28 @@ router.post("/api/v1/member", async function (req, res) {
 });
 
 /*user registration*/
-// router.post('/api/v1/signup',verifyToken,async function(req, res) {
-//     console.log(req.body);
-//     const data = req.data
-//     const token = jwt.sign({data}, my_secret, {
-//         expiresIn: '10h' // expires in 24 hours
-//     });
-//     console.log(token);
-//     if (!req.body.username || !req.body.password) {
-//       res.status(400).send({msg: 'Please pass username and password.'})
-//     } else {
 
-//       const result = await knex("usermanagement.users").insert({
-//         username: req.body.username,
-//         password: req.body.password,
-//     });
-//     res.send(result);
-
-//         // .then((user) => res.status(201).send(user))
-//         // .catch((error) => {
-//         //   console.log(error);
-//         //   res.status(400).send(error);
-//         // });
-//     }
-//   });
 router.post('/api/v1/signup', async (req, res, next) => {
-    // const data = req.data
-    // const token = jwt.sign({ data }, privatekey, {
-    //     expiresIn: '24h' // expires in 24 hours
-    // });
-    // console.log(token);
+
     if (!req.body.username || !req.body.password || !req.body.email || !req.body.firstName) {
         res.status(400).send({ msg: 'Please pass username and password.' })
     } else {
         try {
 
-            const encrypt_username = encrypt(req.body.username);
-            const encrypt_password = encrypt(req.body.password);
+            let encrypt_username = encrypt(req.body.username);
+            let encrypt_password = encrypt(req.body.password);
             const data = req.data
             const token = jwt.sign({ data }, my_secret, {
                 expiresIn: '24h' // expires in 24 hours
             });
 
-            console.log(token)
+            //  console.log(token)
             const result = await knex("usermanagement.users")
-                .distinct(username, password, email)
+                .distinct(encrypt_username, encrypt_password, req.body.email)
                 .insert({ username: encrypt_username, password: encrypt_password, email: req.body.email, firstName: req.body.firstName, token: token })
                 .returning('*')
 
             res.send(result)
-            // jwt.verify(req.token, privatekey, (err, authData) => {
-            //     console.log(authData)
-            //     if (err) {
-            //         res.sendStatus(403);
-
-            //     } else {
-            //         return res.send({
-            //             status: "SUCCESS",
-            //             message: "User created "
-            //             // authData
-            //         })
-            //     }
-            // })
 
         } catch (error) {
 
@@ -192,40 +152,24 @@ router.post('/api/v1/login', async (req, res, next) => {
         res.status(400).send({ msg: 'Please pass username and password.' })
     } else {
         try {
-            // const data = req.data
 
-            // const encrypted_username = encrypt(data);
-            // const encrypted_password = encrypt(req.body.password);
-            const user = await knex("usermanagement.users").where({
-                // email: req.body.email,
-                username: req.body.username,
-                password: req.body.password
-            }).first();
-            // const user = await knex("usermanagement.users")
-            //     .select("users.username", "users.password").first();
-            // // const decrepted_username = decrypt(user.username);
-            // // const decrepted_password = decrypt(user.password);
-            // console.log(decrepted_username);
+            // const registerd_user =  await knex("usermanagement.users").select('*').where('username','=',req.body.username);
+
+            // console.log(registerd_user.username);
+
+
+            encrypted_username = encrypt(req.body.username);
+            encrypted_password = encrypt(req.body.password);
+
+
+            const user = await knex("usermanagement.users")
+                .select('*')
+                .where('username', encrypted_username)
+                .where('password', encrypted_password)
+
 
             //checking to make sure the user entered the correct username/password combo
-            if (username === user.username && password === user.password) {
-                // jwt.verify(req.token, privatekey, (err, authData) => {
-                //     console.log(authData)
-                //     if (err) {
-                //         res.status(401).json({
-                //             success: false,
-                //             message: 'Authentification failed.'
-                //         });
-                //         console.log('ERROR: Could not log in');
-                //     } else {
-                //         return res.send({
-                //             status: "SUCCESS",
-                //             message: 'Successful log in'
-                //             // authData
-                //         });
-                //     }
-                // })
-                //if user log in success, generate a JWT token for the user with a secret key
+            if (user.length) {
                 jwt.sign({ user }, privatekey, { expiresIn: '2h' }, (err, token) => {
                     if (err) { console.log(err) }
                     res.send(token);
@@ -235,11 +179,15 @@ router.post('/api/v1/login', async (req, res, next) => {
                 });
 
             } else {
-                console.log('ERROR: Could not log in');
+                console.log('could not login')
+                res.send(
+                    {
+                        message: 'Could not log in'
+                    })
             }
             // }
         } catch (error) {
-            console.error('ERROR: Could not log in');
+            console.error(error);
 
         }
     }
