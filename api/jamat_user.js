@@ -132,70 +132,70 @@ router.post("/api/v1/member", async function (req, res) {
 
 // });
 
-const encrypt = (text) => {
-    var cipher = crypto.createCipher(algorithm, my_secret)
-    var crypted = cipher.update(text, 'utf8', 'hex')
-    crypted += cipher.final('hex');
-    return crypted;
-}
+// const encrypt = (text) => {
+//     var cipher = crypto.createCipher(algorithm, my_secret)
+//     var crypted = cipher.update(text, 'utf8', 'hex')
+//     crypted += cipher.final('hex');
+//     return crypted;
+// }
 /*login user api*/
-router.post('/api/v1/login', async (req, res, next) => {
-    const { body } = req;
-    const { username } = body;
-    const { password } = body;
-    // const { email } = body;    // const data = req.data
+// router.post('/api/v1/login', async (req, res, next) => {
+//     const { body } = req;
+//     const { username } = body;
+//     const { password } = body;
+//     // const { email } = body;    // const data = req.data
 
-    if (!req.body.username && !req.body.password) {
-        res.status(400).send({ msg: 'Please pass username and password.' })
-    } else {
-        try {
+//     if (!req.body.username && !req.body.password) {
+//         res.status(400).send({ msg: 'Please pass username and password.' })
+//     } else {
+//         try {
 
-            // const registerd_user =  await knex("usermanagement.users").select('*').where('username','=',req.body.username);
+//             // const registerd_user =  await knex("usermanagement.users").select('*').where('username','=',req.body.username);
 
-            // console.log(registerd_user.username);
-
-
-            encrypted_username = encrypt(req.body.username);
-            encrypted_password = encrypt(req.body.password);
+//             // console.log(registerd_user.username);
 
 
-            const user = await knex("usermanagement.users")
-                .select('*')
-                .where('username', encrypted_username)
-                .where('password', encrypted_password)
+//             encrypted_username = encrypt(req.body.username);
+//             encrypted_password = encrypt(req.body.password);
 
 
-            //checking to make sure the user entered the correct username/password combo
-            if (user.length) {
-                jwt.sign({ user }, privatekey, { expiresIn: '2h' }, (err, token) => {
-                    if (err) { console.log(err) }
-                    res.send(token);
-                    res.json({
-                        message: 'Successful log in'
-                    });
-                });
+//             const user = await knex("usermanagement.users")
+//                 .select('*')
+//                 .where('username', encrypted_username)
+//                 .where('password', encrypted_password)
 
-            } else {
-                console.log('could not login')
-                res.send(
-                    {
-                        message: 'Could not log in'
-                    })
-            }
-            // }
-        } catch (error) {
-            console.error(error);
 
-        }
-    }
+//             //checking to make sure the user entered the correct username/password combo
+//             if (user.length) {
+//                 jwt.sign({ user }, privatekey, { expiresIn: '2h' }, (err, token) => {
+//                     if (err) { console.log(err) }
+//                     res.send(token);
+//                     res.json({
+//                         message: 'Successful log in'
+//                     });
+//                 });
 
-});
-const decrypt = (text) => {
-    var decipher = crypto.createDecipher(algorithm, my_secret)
-    var dec = decipher.update(text, 'hex', 'utf8')
-    dec += decipher.final('utf8');
-    return dec;
-}
+//             } else {
+//                 console.log('could not login')
+//                 res.send(
+//                     {
+//                         message: 'Could not log in'
+//                     })
+//             }
+//             // }
+//         } catch (error) {
+//             console.error(error);
+
+//         }
+//     }
+
+// });
+// const decrypt = (text) => {
+//     var decipher = crypto.createDecipher(algorithm, my_secret)
+//     var dec = decipher.update(text, 'hex', 'utf8')
+//     dec += decipher.final('utf8');
+//     return dec;
+// }
 const checkToken = (req, res, next) => {
     const header = req.headers['authorization'];
 

@@ -27,9 +27,13 @@ app.use(body_parser.json());
 // app.use(require('./api/jamat_user'));
 // app.use('v1',require('./routes/verify_otp'));
 const registration_routes = require('./routes/v1/registration/registration_routes');
+const signin_routes = require('./routes/v1/admin_login/signin_routes');
+const user_routes = require('./routes/v1/user/user_routes')
 
 const routes = [
-    registration_routes
+    registration_routes,
+    signin_routes,
+    user_routes
 ]
 app.use(routes)
  // catch 404 and forward to error
