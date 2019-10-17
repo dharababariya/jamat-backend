@@ -23,11 +23,15 @@ const body_parser = require('body-parser');
 app.use(body_parser.json());
 
 // routes
-app.use( require('./routes/jamat_member'));
-app.use(require('./routes/jamat_user'));
+// app.use( require('./api/jamat_member'));
+// app.use(require('./api/jamat_user'));
 // app.use('v1',require('./routes/verify_otp'));
+const registration_routes = require('./routes/v1/registration/registration_routes');
 
-
+const routes = [
+    registration_routes
+]
+app.use(routes)
  // catch 404 and forward to error
 // handler
 app.use(function (req, res, next) {

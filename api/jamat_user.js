@@ -1,4 +1,4 @@
-// // const knex = require('../helpers/knex');
+
 const express = require("express");
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
@@ -7,11 +7,8 @@ const passport = require('passport');
 // const LocalStrategy=require('passport-local').Strategy;
 const router = express.Router();
 require('../config/passport')(passport);
-// const bodyParser = require("body-parser");
 const knex = require('../db/knexfile');
-// const algorithm = 'blahblahblah';
 const algorithm = 'aes-256-ctr';
-// const algorithm = 'aes-128-cbc';
 const my_secret = 'ha558moj##ha$$';
 
 router.use(function (req, res, next) {
@@ -105,35 +102,35 @@ router.post("/api/v1/member", async function (req, res) {
 
 /*user registration*/
 
-router.post('/api/v1/signup', async (req, res, next) => {
+// router.post('/api/v1/signup', async (req, res, next) => {
 
-    if (!req.body.username || !req.body.password || !req.body.email || !req.body.firstName) {
-        res.status(400).send({ msg: 'Please pass username and password.' })
-    } else {
-        try {
+//     if (!req.body.username || !req.body.password || !req.body.email || !req.body.firstName) {
+//         res.status(400).send({ msg: 'Please pass username and password.' })
+//     } else {
+//         try {
 
-            let encrypt_username = encrypt(req.body.username);
-            let encrypt_password = encrypt(req.body.password);
-            const data = req.data
-            const token = jwt.sign({ data }, my_secret, {
-                expiresIn: '24h' // expires in 24 hours
-            });
+//             let encrypt_username = encrypt(req.body.username);
+//             let encrypt_password = encrypt(req.body.password);
+//             const data = req.data
+//             const token = jwt.sign({ data }, my_secret, {
+//                 expiresIn: '24h' // expires in 24 hours
+//             });
 
-            //  console.log(token)
-            const result = await knex("usermanagement.users")
-                .distinct(encrypt_username, encrypt_password, req.body.email)
-                .insert({ username: encrypt_username, password: encrypt_password, email: req.body.email, firstName: req.body.firstName, token: token })
-                .returning('*')
+//             //  console.log(token)
+//             const result = await knex("usermanagement.users")
+//                 .distinct(encrypt_username, encrypt_password, req.body.email)
+//                 .insert({ username: encrypt_username, password: encrypt_password, email: req.body.email, firstName: req.body.firstName, token: token })
+//                 .returning('*')
 
-            res.send(result)
+//             res.send(result)
 
-        } catch (error) {
+//         } catch (error) {
 
-            console.error(error);
-        }
-    }
+//             console.error(error);
+//         }
+//     }
 
-});
+// });
 
 const encrypt = (text) => {
     var cipher = crypto.createCipher(algorithm, my_secret)
