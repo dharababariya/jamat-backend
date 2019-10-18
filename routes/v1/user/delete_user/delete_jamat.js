@@ -1,8 +1,8 @@
-const knex = require('../../../db/knexfile');
+const knex = require('../../../../db/knexfile');
 
-const delete_state = async function (req, res) {
+const delete_jamat = async function (req, res) {
     try {
-        const result = await knex("usermanagement.states")
+        const result = await knex("usermanagement.jamat")
             .delete()
             .where("id", "=", req.query.id)
         return res
@@ -14,4 +14,4 @@ const delete_state = async function (req, res) {
     }
 }
 
-module.exports = delete_state;
+module.exports = delete_jamat;

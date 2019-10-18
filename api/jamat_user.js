@@ -298,28 +298,28 @@ router.get('/user/data', checkToken, (req, res) => {
 //     }
 // });
 /* update states from database */
-router.put("/api/v1/states", async function (req, res) {
-    console.log(`id ${req.params.id}`);
-    await knex("usermanagement.states")
-        .where("id", "=", req.params.id)
-        .update("state_code", req.body.state_code);
-    res.send();
-});
+// router.put("/api/v1/states", async function (req, res) {
+//     console.log(`id ${req.params.id}`);
+//     await knex("usermanagement.states")
+//         .where("id", "=", req.params.id)
+//         .update("state_code", req.body.state_code);
+//     res.send();
+// });
 
 /*delete zone from DB*/
-router.delete('/api/v1/zone/:id', async (req, res) => {
-    try {
-        const result = await knex("usermanagement.zone")
-            .delete()
-            .where("id", "=", req.params.id)
-        return res
-            .status(200)
-            .send({ status: 'Successfully Deteted' });
-    } catch (error) {
-        res.status(500);
+// router.delete('/api/v1/zone/:id', async (req, res) => {
+//     try {
+//         const result = await knex("usermanagement.zone")
+//             .delete()
+//             .where("id", "=", req.params.id)
+//         return res
+//             .status(200)
+//             .send({ status: 'Successfully Deteted' });
+//     } catch (error) {
+//         res.status(500);
 
-    }
-});
+//     }
+// });
 
 /*delete member from DB*/
 // router.delete('/api/v1/member/:id', async (req, res) => {

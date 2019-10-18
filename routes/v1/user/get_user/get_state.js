@@ -1,5 +1,4 @@
-const knex = require('../../../db/knexfile');
-
+const knex = require('../../../../db/knexfile');
 /* get states from database*/
 
 const get_state = async function (req, res) {

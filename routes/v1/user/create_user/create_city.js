@@ -1,4 +1,4 @@
-const knex = require('../../../db/knexfile');
+const knex = require('../../../../db/knexfile');
 
 const create_cities = async function (req, res) {
     try {

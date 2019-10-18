@@ -1,4 +1,4 @@
-const knex = require('../../../db/knexfile');
+const knex = require('../../../../db/knexfile');
 const jwt = require('jsonwebtoken');
 const my_secret = 'ha558moj##ha$$';
 

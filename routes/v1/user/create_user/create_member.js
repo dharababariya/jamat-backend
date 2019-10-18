@@ -1,5 +1,4 @@
-const knex = require('../../../db/knexfile');
-
+const knex = require('../../../../db/knexfile');
 /*  Get jamat from database */
 
 const create_member = async function (req, res) {

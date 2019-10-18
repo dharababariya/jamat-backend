@@ -28,9 +28,9 @@ app.use(body_parser.json());
 // app.use('v1',require('./routes/verify_otp'));
 const registration_routes = require('./routes/v1/registration/registration_routes');
 const signin_routes = require('./routes/v1/admin_login/signin_routes');
-const user_routes = require('./routes/v1/user/user_routes');
-const create_routes = require('./routes/v1/user/create_routes');
-const remove_routes = require('./routes/v1/user/remove_user_route');
+const user_routes = require('./routes/v1/user/get_user/user_routes');
+const create_routes = require('./routes/v1/user/create_user/create_routes');
+const remove_routes = require('./routes/v1/user/delete_user/remove_user_route');
 const routes = [
     registration_routes,
     signin_routes,
