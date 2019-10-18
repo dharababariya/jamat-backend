@@ -23,21 +23,24 @@ const body_parser = require('body-parser');
 app.use(body_parser.json());
 
 // routes
-// app.use( require('./api/jamat_member'));
-// app.use(require('./api/jamat_user'));
-// app.use('v1',require('./routes/verify_otp'));
 const registration_routes = require('./routes/v1/registration/registration_routes');
 const signin_routes = require('./routes/v1/admin_login/signin_routes');
 const user_routes = require('./routes/v1/user/get_user/user_routes');
 const create_routes = require('./routes/v1/user/create_user/create_routes');
 const remove_routes = require('./routes/v1/user/delete_user/remove_user_route');
+const update_routes = require('./routes/v1/user/update_user/upadate_route');
+
+
 const routes = [
     registration_routes,
     signin_routes,
     user_routes,
     create_routes,
-    remove_routes
+    remove_routes,
+    update_routes
 ]
+
+
 app.use(routes)
  // catch 404 and forward to error
 // handler

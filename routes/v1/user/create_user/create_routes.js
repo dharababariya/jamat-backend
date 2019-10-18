@@ -7,11 +7,11 @@ const create_member = require('./create_member');
 
 const create_jamat = require('./create_jamat');
 
-const create_state = require('../create_state');
+const create_state = require('./create_state');
 
 const create_cities = require('./create_city');
 
-const create_zone = require('../create_zone');
+const create_zone = require('./create_zone');
 
 
 router.post("/api/create_member", create_member);
