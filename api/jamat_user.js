@@ -236,67 +236,67 @@ router.get('/user/data', checkToken, (req, res) => {
 });
 
 /* add jamat to database*/
-router.post("/api/v1/jamat", async function (req, res) {
-    try {
-        console.log(JSON.stringify(req.body));
-        const result = await knex("usermanagement.jamat").insert({
-            name: req.body.name,
-            city: req.body.city,
-            state: req.body.state,
-            jamat_code: req.body.jamat_code,
-            submited_date: new Date()
-        });
-        res.send(result);
-    } catch (error) {
-        res.sendStatus(500);
-    }
+// router.post("/api/v1/jamat", async function (req, res) {
+//     try {
+//         console.log(JSON.stringify(req.body));
+//         const result = await knex("usermanagement.jamat").insert({
+//             name: req.body.name,
+//             city: req.body.city,
+//             state: req.body.state,
+//             jamat_code: req.body.jamat_code,
+//             submited_date: new Date()
+//         });
+//         res.send(result);
+//     } catch (error) {
+//         res.sendStatus(500);
+//     }
 
-});
+// });
 /* add zone to database*/
-router.post("/api/v1/zone", async function (req, res) {
-    console.log(JSON.stringify(req.body));
-    const data = req.data
-    const token = jwt.sign({ data }, my_secret, {
-        expiresIn: '24h' // expires in 24 hours
-    });
-    console.log(token);
+// router.post("/api/v1/zone", async function (req, res) {
+//     console.log(JSON.stringify(req.body));
+//     const data = req.data
+//     const token = jwt.sign({ data }, my_secret, {
+//         expiresIn: '24h' // expires in 24 hours
+//     });
+//     console.log(token);
 
-    // const token = getToken(req.headers);
+//     // const token = getToken(req.headers);
 
-    const result = await knex("usermanagement.zone").insert({
-        name: req.body.name,
-        zcode: req.body.zcode,
-    });
-    res.send(result);
-});
+//     const result = await knex("usermanagement.zone").insert({
+//         name: req.body.name,
+//         zcode: req.body.zcode,
+//     });
+//     res.send(result);
+// });
 
 /* add states to database*/
-router.post("/api/v1/states", async function (req, res) {
-    try {
-        console.log(JSON.stringify(req.body));
-        const result = await knex("usermanagement.states").insert({
-            state: req.body.state,
-            state_code: req.body.state_code,
-        });
-        res.send(result);
-    } catch (error) {
-        res.sendStatus(500);
-    }
+// router.post("/api/v1/states", async function (req, res) {
+//     try {
+//         console.log(JSON.stringify(req.body));
+//         const result = await knex("usermanagement.states").insert({
+//             state: req.body.state,
+//             state_code: req.body.state_code,
+//         });
+//         res.send(result);
+//     } catch (error) {
+//         res.sendStatus(500);
+//     }
 
-});
+// });
 /* add cities to database*/
-router.post("/api/v1/cities", async function (req, res) {
-    try {
-        console.log(JSON.stringify(req.body));
-        const result = await knex("usermanagement.city").insert({
-            city: req.body.city,
-            city_code: req.body.city_code,
-        });
-        res.send(result);
-    } catch (error) {
-        res.status(500);
-    }
-});
+// router.post("/api/v1/cities", async function (req, res) {
+//     try {
+//         console.log(JSON.stringify(req.body));
+//         const result = await knex("usermanagement.city").insert({
+//             city: req.body.city,
+//             city_code: req.body.city_code,
+//         });
+//         res.send(result);
+//     } catch (error) {
+//         res.status(500);
+//     }
+// });
 /* update states from database */
 router.put("/api/v1/states", async function (req, res) {
     console.log(`id ${req.params.id}`);
@@ -322,65 +322,65 @@ router.delete('/api/v1/zone/:id', async (req, res) => {
 });
 
 /*delete member from DB*/
-router.delete('/api/v1/member/:id', async (req, res) => {
-    try {
-        const result = await knex("usermanagement.members")
-            .delete()
-            .where("id", "=", req.params.id)
-        return res
-            .status(200)
-            .send({ status: 'Successfully Deteted' });
-    } catch (error) {
-        res.sendStatus(500);
-        res.send({ status: 'Failure ' })
-    }
-});
+// router.delete('/api/v1/member/:id', async (req, res) => {
+//     try {
+//         const result = await knex("usermanagement.members")
+//             .delete()
+//             .where("id", "=", req.params.id)
+//         return res
+//             .status(200)
+//             .send({ status: 'Successfully Deteted' });
+//     } catch (error) {
+//         res.sendStatus(500);
+//         res.send({ status: 'Failure ' })
+//     }
+// });
 
 /*delete states from DB*/
-router.delete('/api/v1/states/:id', async (req, res) => {
-    try {
-        const result = await knex("usermanagement.states")
-            .delete()
-            .where("id", "=", req.params.id)
-        return res
-            .status(200)
-            .send({ status: 'Successfully Deteted' });
-    } catch (error) {
-        res.sendStatus(500);
-        res.send({ status: 'Fail' });
-    }
-});
+// router.delete('/api/v1/states/:id', async (req, res) => {
+//     try {
+//         const result = await knex("usermanagement.states")
+//             .delete()
+//             .where("id", "=", req.params.id)
+//         return res
+//             .status(200)
+//             .send({ status: 'Successfully Deteted' });
+//     } catch (error) {
+//         res.sendStatus(500);
+//         res.send({ status: 'Fail' });
+//     }
+// });
 
 /*delete cities from DB*/
-router.delete('/api/v1/cities/:id', async (req, res) => {
-    try {
-        const result = await knex("usermanagement.city")
-            .delete()
-            .where("id", "=", req.params.id)
-        return res
-            .status(200)
-            .send({ status: 'Successfully Deteted' });
-    } catch (error) {
-        res.sendStatus(500);
-        res.send({ status: 'Fail' });
-    }
-});
+// router.delete('/api/v1/cities/:id', async (req, res) => {
+//     try {
+//         const result = await knex("usermanagement.city")
+//             .delete()
+//             .where("id", "=", req.params.id)
+//         return res
+//             .status(200)
+//             .send({ status: 'Successfully Deteted' });
+//     } catch (error) {
+//         res.sendStatus(500);
+//         res.send({ status: 'Fail' });
+//     }
+// });
 
 /*delete jamat from DB*/
-router.delete('/api/v1/jamat/:id', async (req, res) => {
-    try {
-        const result = await knex("usermanagement.jamat")
-            .delete()
-            .where("id", "=", req.params.id)
-        return res
-            .status(200)
-            .send({ status: 'Successfully Deteted' });
-    } catch (error) {
-        res.sendStatus(500);
-        res.send({ status: 'Fail' });
-    }
+// router.delete('/api/v1/jamat/:id', async (req, res) => {
+//     try {
+//         const result = await knex("usermanagement.jamat")
+//             .delete()
+//             .where("id", "=", req.params.id)
+//         return res
+//             .status(200)
+//             .send({ status: 'Successfully Deteted' });
+//     } catch (error) {
+//         res.sendStatus(500);
+//         res.send({ status: 'Fail' });
+//     }
 
-});
+// });
 
 /* Token verify*/
 function verifyToken(req, res, next) {

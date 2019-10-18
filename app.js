@@ -30,13 +30,13 @@ const registration_routes = require('./routes/v1/registration/registration_route
 const signin_routes = require('./routes/v1/admin_login/signin_routes');
 const user_routes = require('./routes/v1/user/user_routes');
 const create_routes = require('./routes/v1/user/create_routes');
-
+const remove_routes = require('./routes/v1/user/remove_user_route');
 const routes = [
     registration_routes,
     signin_routes,
     user_routes,
-    create_routes
-
+    create_routes,
+    remove_routes
 ]
 app.use(routes)
  // catch 404 and forward to error
